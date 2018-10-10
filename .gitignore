@@ -110,3 +110,8 @@ open/
 bin/
 include/
 lib/
+pip-selfcheck.json
+
+#messy files due to windows
+..gitignore.un~
+.gitignore~
