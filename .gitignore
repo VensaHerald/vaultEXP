@@ -115,6 +115,7 @@ pip-selfcheck.json
 #messy files due to windows
 ..gitignore.un~
 .gitignore~
+*.py.un~
 
 #credentials
 credentials.json
