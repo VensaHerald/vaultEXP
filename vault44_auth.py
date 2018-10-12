@@ -2,7 +2,7 @@ from __future__ import print_function
 from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
 from googleapiclient.discovery import build
-import globals
+from open.globals import *
 import csv
 import time
 
@@ -15,6 +15,7 @@ def delegate_service(path_file,scopes,user):
 	creds = service_account.Credentials.from_service_account_file(path_file,scopes=scopes)
 	delegated_creds = creds.with_subject(user)
 	service = build('vault', 'v1', credentials=delegated_creds)
+	print("Service created")
 	return service
 
 #response dict containing only the exports key and all data
@@ -27,6 +28,8 @@ class Matter_Exports:
 		self.matter_id = matter_id
 		self.service = service
 		self.exports = service.matters().exports().list(matterId=matter_id).execute().get('exports',[])
+		if self.exports:
+			print("Matter created")
 	
 	def list_exports_id(self):
 		export_list = []
@@ -66,19 +69,19 @@ class Matter_Exports:
 		
 		
 #get csv file, parse into list, slice to avoid previously created exports/headers
-email_list= [a for a in csv.reader(open("eml_list.csv","r"))][1:]
+email_list= [a for a in csv.reader(open("../eml_list.csv","r"))][1:]
 #set up service and matter to create exports in
 va_service = delegate_service(SERVICE_FILE,SCOPES,STD_USER)
 va_matter = Matter_Exports(va_service, STD_MATTER)
 
 #loop through email list and create an export per email.  Catch any failed exports in try/except
-for email in email_list:
-	try:
-		created = va_matter.create_export(email[0])
-		print("export created for {}".format(email[0]))
-	except:
-		print("export failed for {}".format(email[0]))
-	time.sleep(55) # sleep to avoid goign over quota
+# for email in email_list:
+	# try:
+		# created = va_matter.create_export(email[0])
+		# print("export created for {}".format(email[0]))
+	# except:
+		# print("export failed for {}".format(email[0]))
+	# time.sleep(55) # sleep to avoid goign over quota
 
 #creds = service_account.Credentials.from_service_account_file(SERVICE_FILE,scopes=SCOPES)
 
