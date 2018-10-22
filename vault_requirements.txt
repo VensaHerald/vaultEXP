@@ -1,5 +1,5 @@
 cachetools==2.1.0
-certifi==2018.8.24
+certifi==2018.10.15
 chardet==3.0.4
 google-api-python-client==1.7.4
 google-auth==1.5.1
@@ -8,10 +8,11 @@ google-cloud==0.34.0
 httplib2==0.11.3
 idna==2.7
 oauthlib==2.1.0
+pkg-resources==0.0.0
 pyasn1==0.4.4
 pyasn1-modules==0.2.2
-requests==2.19.1
-rsa==3.4.2
+requests==2.20.0
+rsa==4.0
 six==1.11.0
 uritemplate==3.0.0
-urllib3==1.23
+urllib3==1.24
