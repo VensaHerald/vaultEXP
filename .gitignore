@@ -111,6 +111,8 @@ bin/
 include/
 lib/
 pip-selfcheck.json
+lib64
+share/
 
 #messy files due to windows
 ..gitignore.un~
