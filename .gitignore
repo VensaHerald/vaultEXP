@@ -119,6 +119,13 @@ share/
 .gitignore~
 *.py.un~
 
+#compiled python files
+*.pyc
+
+#jinja debug files
+templates/
+flas_test.py
+
 #credentials
 credentials.json
 
