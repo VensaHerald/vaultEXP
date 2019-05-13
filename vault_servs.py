@@ -1,19 +1,24 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
-def delegate_service(path_file,scopes,user):
-    creds = service_account.Credentials.from_service_account_file(path_file,scopes=scopes)
-    delegated_creds = creds.with_subject(user)
-    service = build('vault', 'v1', credentials=delegated_creds)
-    print("Service created")
-    return service
 
-#response dict containing only the exports key and all data
-#mult_exports list containing list of dicts for each export
-#export dict containing status, cloudstoragesink,stats,name,matterId,createTime,exportOptions,requested,query,id
 
-#class for handling exports.  accepts service object and matter ID on initialisation.   
-class Matter_Exports:
+class Google_Service:
+    def __init__(self, file, scopes, user):
+        self.file = file
+        self.scopes = scopes
+        self.user = user
+    
+    def create_service(self):
+        creds = service_account.Credentials.from_service_account_file(self.file,scopes=self.scopes)
+        delegated_creds = creds.with_subject(self.user)
+        service = build('vault', 'v1', credentials=delegated_creds)
+        print("Service created")
+        return service
+    
+    
+
+class Matter_Exports(Google_Service):
     def __init__(self,service,matter_id):
         self.matter_id = matter_id
         self.service = service
