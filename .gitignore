@@ -106,18 +106,27 @@ venv.bak/
 #SV
 open/
 
-#virtualenv
+#virtualenv+pyvenv+pipenv
 bin/
 include/
 lib/
 pip-selfcheck.json
 lib64
 share/
+pyvent.cfg
+
 
 #messy files due to windows
 ..gitignore.un~
 .gitignore~
 *.py.un~
+
+#compiled python files
+*.pyc
+
+#jinja debug files
+templates/
+flas_test.py
 
 #credentials
 credentials.json
