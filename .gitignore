@@ -106,13 +106,15 @@ venv.bak/
 #SV
 open/
 
-#virtualenv
+#virtualenv+pyvenv+pipenv
 bin/
 include/
 lib/
 pip-selfcheck.json
 lib64
 share/
+pyvent.cfg
+
 
 #messy files due to windows
 ..gitignore.un~
