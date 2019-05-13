@@ -1,0 +1,28 @@
+from google.auth.transport.requests import AuthorizedSession
+from open.globals import *
+import vault_servs
+
+import csv
+import time
+import sys
+
+
+# set up service
+va_service = vault_servs.Google_Service(SERVICE_FILE,SCOPES,STD_USER)
+# set up matter using service
+va_matter = vault_servs.Matter_Exports(va_service.create_service(), STD_MATTER)
+# create exports using csv list and csv list
+# create_exports("./eml_list4.csv")
+
+
+def create_exports(path):
+    # Get file, exclude headers
+    email_list= [a for a in csv.reader(open(path,"r"))][1:]
+    #loop through email list and create an export per email.  Catch any failed exports in try/except
+    for email in email_list:
+        try:
+            created = va_matter.create_export(email[0]+"@remploy.co.uk")
+            print("export created for {}".format(email[0]))
+        except:
+            print("export failed for {}".format(email[0]))
+        time.sleep(120) # sleep to avoid goign over quota
