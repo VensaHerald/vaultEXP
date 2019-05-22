@@ -64,19 +64,21 @@ class Vault_Service(Google_Service):
                 'mailOptions':export_options
             }
         } 
-        # print(export_create)
-        return self.service.matters().exports().create(matterId=self.matter_id,body =export_create).execute()
+        
+        return self.service.matters().exports().create(matterId = self.matter_id, body = export_create).execute()
     
     def create_exports(self,path):
         # Get file, exclude headers
         email_list= [a for a in csv.reader(open(path,"r"))][1:]
+        print("Exports will begin in 2 minutes, and then procede at a rate of 1 export per 2 minutes")
+        time.sleep(120) # sleep to avoid goign over quota
         #loop through email list and create an export per email.  Catch any failed exports in try/except
         for email in email_list:
             try:
-                created = va_matter.create_1_export(email[0]+"@remploy.co.uk")
+                self.create_1_export(email[0]+"@remploy.co.uk")                           
                 print("export created for {}".format(email[0]))
-            except:
-                print("export failed for {}".format(email[0]))
+            except Exception as e:
+                print("export failed for {}".format(email[0]))                
             time.sleep(120) # sleep to avoid goign over quota
         return 0
     
